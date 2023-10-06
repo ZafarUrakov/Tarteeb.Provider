@@ -4,6 +4,7 @@
 //===============================
 
 using System.Collections.Generic;
+using Tarteeb.Provider.Brokers.Exceptions;
 using Tarteeb.Provider.Brokers.Spreadsheets;
 using Tarteeb.Provider.Models.Applicant;
 
@@ -23,7 +24,7 @@ namespace Tarteeb.Provider.Services.Foundatons.ImporterService
                 }
                 else
                 {
-                
+                    throw new NullApplicantException();
                 }
             }
 
