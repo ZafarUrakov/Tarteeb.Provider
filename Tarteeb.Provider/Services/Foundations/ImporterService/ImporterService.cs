@@ -5,12 +5,12 @@
 
 using System.Collections.Generic;
 using Tarteeb.Provider.Brokers.Exceptions;
-using Tarteeb.Provider.Brokers.Spreadsheets;
 using Tarteeb.Provider.Models.Applicant;
+using Tarteeb.Provider.Services.Foundations.ImporterService;
 
 namespace Tarteeb.Provider.Services.Foundatons.ImporterService
 {
-    internal class ImporterService
+    internal class ImporterService : IImporterService
     {
         internal List<Applicant> ValidateApplicantNotNull(List<Applicant> applicants)
         {
