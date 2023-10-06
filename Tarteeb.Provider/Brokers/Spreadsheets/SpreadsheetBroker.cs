@@ -29,7 +29,6 @@ namespace Tarteeb.Provider.Brokers.Spreadsheets
                 string applicantIdString = worksheet.Cell(row, 0).ToString();
                 if (Guid.TryParse(applicantIdString, out Guid applicantId))
                 {
-                    // Преобразование успешно, присваиваем значение applicantId
                     applicant.ApplicantId = applicantId;
                 }
                 applicant.Firstname = worksheet.Cell(row, 1).ToString();
