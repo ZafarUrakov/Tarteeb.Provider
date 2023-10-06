@@ -10,7 +10,7 @@ using Tarteeb.Provider.Models.Applicant;
 
 namespace Tarteeb.Provider.Brokers.Spreadsheets
 {
-    public class SpreadsheetBroker : ISpreadsheetBroker
+    public class SpreadsheetBroker
     {
         public List<Applicant> applicants = new List<Applicant>();
 
