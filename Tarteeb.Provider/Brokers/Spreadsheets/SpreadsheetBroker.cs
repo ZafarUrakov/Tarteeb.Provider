@@ -26,17 +26,20 @@ namespace Tarteeb.Provider.Brokers.Spreadsheets
             {
                 Applicant applicant = new Applicant();
 
-                string applicantIdString = worksheet.Cell(row, 0).ToString();
-                if (Guid.TryParse(applicantIdString, out Guid applicantId))
-                {
-                    applicant.ApplicantId = applicantId;
-                }
+                applicant.ApplicantId = Guid.NewGuid();
                 applicant.Firstname = worksheet.Cell(row, 1).ToString();
                 applicant.Lastname = worksheet.Cell(row, 2).ToString();
                 applicant.PhoneNumber = worksheet.Cell(row, 3).ToString();
                 applicant.Email = worksheet.Cell(row, 4).ToString();
-                applicant.Groupname = worksheet.Cell(row, 5).ToString();
 
+                string dateString = worksheet.Cell(row, 5).ToString();
+                if (DateTimeOffset.TryParse(dateString, out DateTimeOffset date))
+                {
+                    applicant.BirthDate = date;
+                }
+
+                applicant.Groupname = worksheet.Cell(row, 6).ToString();
+                applicant.GroupId = Guid.NewGuid();
                 applicants.Add(applicant);
             }
 
