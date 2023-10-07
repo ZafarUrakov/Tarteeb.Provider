@@ -13,8 +13,12 @@ namespace Tarteeb.Provider.Services.Orchestrations
     internal class OrchestrationService
     {
         ImporterProcessingService importerProcessingService = new ImporterProcessingService();
+        GroupProcessingService groupProcessingService = new GroupProcessingService();
+        
 
-        public List<Applicant> readyApplicants = new List<Applicant>();
+        List<Applicant> readyApplicants = new List<Applicant>();
+        List<Applicant> fullAplicants = new List<Applicant>();
+
 
         public List<Applicant> ProcessImport(string filePath)
         {
@@ -24,12 +28,7 @@ namespace Tarteeb.Provider.Services.Orchestrations
 
                 readyApplicants.AddRange(validApplicants);
 
-                foreach (var item in validApplicants)
-                {
-                    Console.WriteLine(item.Firstname + " " + item.Lastname);
-                }
-
-                Console.WriteLine("Import and validation successful.");
+                var fullAplicants = groupProcessingService.AllApplicants(readyApplicants);
             }
             catch (Exception exception)
             {
