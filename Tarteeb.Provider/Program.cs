@@ -5,6 +5,7 @@
 
 using System;
 using Tarteeb.Provider.Services.Orchestrations;
+using Tarteeb.Provider.Services.Processings.ImporterProcessingService;
 
 class Program
 {
@@ -18,8 +19,8 @@ class Program
 
         foreach (var applicant in processedApplicants)
         {
-            Console.WriteLine($"Firstname: {applicant.Firstname} , LastName: {applicant.Lastname}, " +
-                $"PhoneNumber: {applicant.PhoneNumber}, Email: {applicant.Email} Groupname: {applicant.Groupname}");
+            Console.WriteLine($"Id: {applicant.ApplicantId}, Firstname: {applicant.Firstname} , LastName: {applicant.Lastname}, " +
+                $"PhoneNumber: {applicant.PhoneNumber}, Email: {applicant.Email} Groupname: {applicant.Groupname}, gID: {applicant.GroupId}");
         }
     }
 }
