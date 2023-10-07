@@ -14,28 +14,25 @@ namespace Tarteeb.Provider.Services.Orchestrations
     {
         ImporterProcessingService importerProcessingService = new ImporterProcessingService();
         GroupProcessingService groupProcessingService = new GroupProcessingService();
-        
+        ApplicantProcessningService applicantProcessningService = new ApplicantProcessningService();
+
 
         List<Applicant> readyApplicants = new List<Applicant>();
         List<Applicant> fullAplicants = new List<Applicant>();
 
 
-        public List<Applicant> ProcessImport(string filePath)
+        public async void ProcessImport(string filePath)
         {
-            try
-            {
-                List<Applicant> validApplicants = importerProcessingService.ValidateInvalidApplicants(filePath);
 
-                readyApplicants.AddRange(validApplicants);
+            List<Applicant> validApplicants = importerProcessingService.ValidateInvalidApplicants(filePath);
 
-                var fullAplicants = groupProcessingService.AllApplicants(readyApplicants);
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine($" Error: {exception.Message}");
-            }
+            readyApplicants.AddRange(validApplicants);
 
-            return readyApplicants;
+            fullAplicants = await groupProcessingService.AllApplicants(readyApplicants);
+
+            var persistedApplicants = await applicantProcessningService.ConvertAndAddApplicantAsync(fullAplicants);
+
+            Console.WriteLine(persistedApplicants);
         }
     }
 }
