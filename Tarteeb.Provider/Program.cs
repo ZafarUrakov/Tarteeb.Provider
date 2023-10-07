@@ -3,9 +3,7 @@
 // Powering True Leadership
 //===============================
 
-using System;
 using Tarteeb.Provider.Services.Orchestrations;
-using Tarteeb.Provider.Services.Processings.ImporterProcessingService;
 
 class Program
 {
@@ -15,12 +13,6 @@ class Program
 
         OrchestrationService orchestrationService = new OrchestrationService();
 
-        var processedApplicants = orchestrationService.ProcessImport(filePath);
-
-        foreach (var applicant in processedApplicants)
-        {
-            Console.WriteLine($"Id: {applicant.ApplicantId}, Firstname: {applicant.Firstname} , LastName: {applicant.Lastname}, " +
-                $"PhoneNumber: {applicant.PhoneNumber}, Email: {applicant.Email} Groupname: {applicant.Groupname}, gID: {applicant.GroupId}");
-        }
+        orchestrationService.ProcessImport(filePath);
     }
 }
