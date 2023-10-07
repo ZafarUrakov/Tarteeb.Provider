@@ -12,8 +12,9 @@ namespace Tarteeb.Provider.Services.Orchestrations
 {
     internal class OrchestrationService
     {
-        private readonly ImporterProcessingService importerProcessingService;
-        public List<Applicant> readyApplicants { get; private set; } = new List<Applicant>();
+        ImporterProcessingService importerProcessingService = new ImporterProcessingService();
+
+        public List<Applicant> readyApplicants = new List<Applicant>();
 
         public List<Applicant> ProcessImport(string filePath)
         {
