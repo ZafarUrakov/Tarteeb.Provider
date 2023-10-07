@@ -8,13 +8,10 @@ namespace Tarteeb.Provider.Services.Processings.ImporterProcessingService
 {
     internal class ImporterProcessingService
     {
-        private readonly ImporterService importerService;
         InvalidApplicantException invalidApplicantException = new InvalidApplicantException();
 
-        public ImporterProcessingService(ImporterService importerService)
-        {
-            this.importerService = importerService;
-        }
+        ImporterService importerService = new ImporterService();
+
 
         public List<Applicant> ValidateInvalidApplicants(string filePath)
         {

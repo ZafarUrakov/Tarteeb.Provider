@@ -12,16 +12,11 @@ namespace Tarteeb.Provider.Services.Foundatons.ImporterService
 {
     internal class ImporterService
     {
-        private readonly SpreadsheetBroker spreadSheetBroker;
-
-        public ImporterService(SpreadsheetBroker spreadSheetBroker)
-        {
-            this.spreadSheetBroker = spreadSheetBroker;
-        }
+        SpreadsheetBroker spreadsheetBroker = new SpreadsheetBroker();
 
         internal List<Applicant> ValidateApplicantNotNull(string filePath)
         {
-            var applicants = this.spreadSheetBroker.ImportApplicantToList(filePath);
+            var applicants = spreadsheetBroker.ImportApplicantToList(filePath);
             List<Applicant> filteredApplicants = new List<Applicant>();
 
             foreach (var applicant in applicants)
