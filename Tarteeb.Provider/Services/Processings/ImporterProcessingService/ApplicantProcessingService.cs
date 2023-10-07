@@ -21,7 +21,7 @@ namespace Tarteeb.Provider.Services.Processings.ImporterProcessingService
 
         public async Task<List<Applicant>> ConvertAndAddApplicantAsync(List<Applicant> applicants)
         {
-            foreach(var item in applicants)
+            foreach (var item in applicants)
             {
                 await this.applicantService.AddApplicantAsync(item);
             }

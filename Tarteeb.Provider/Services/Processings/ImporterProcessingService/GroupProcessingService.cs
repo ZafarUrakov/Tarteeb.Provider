@@ -15,7 +15,7 @@ namespace Tarteeb.Provider.Services.Processings.ImporterProcessingService
     internal class GroupProcessingService
     {
         private readonly GroupService groupService;
-        
+
         public GroupProcessingService()
         {
             this.groupService = new GroupService();
