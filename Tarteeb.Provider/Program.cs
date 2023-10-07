@@ -4,23 +4,17 @@
 //===============================
 
 using System;
-using System.Collections.Generic;
-using Tarteeb.Provider.Brokers.Spreadsheets;
-using Tarteeb.Provider.Models.Applicant;
-using Tarteeb.Provider.Services.Foundatons.ImporterService;
+using Tarteeb.Provider.Services.Orchestrations;
 
 class Program
 {
     static void Main()
     {
-        string filePath = @"C:\Users\icom\Desktop\.net.xlsx"; 
+        string filePath = @"C:\Users\icom\Desktop\.net.xlsx";
 
-        SpreadsheetBroker spreadsheetBroker = new SpreadsheetBroker();
+        OrchestrationService orchestrationService = new OrchestrationService();
 
-        List<Applicant> importedApplicants = spreadsheetBroker.ImportApplicantToList(filePath);
-
-        ImporterService importerService = new ImporterService();
-        List<Applicant> processedApplicants = importerService.ValidateApplicantNotNull(importedApplicants);
+        var processedApplicants = orchestrationService.ProcessImport(filePath);
 
         foreach (var applicant in processedApplicants)
         {
