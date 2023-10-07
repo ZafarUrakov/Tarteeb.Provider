@@ -19,7 +19,7 @@ namespace Tarteeb.Provider.Brokers.Storages
         }
 
         public async Task<Group> SelectGroupByName(string groupName) =>
-            await this.Groups.FindAsync(groupName);
+             await this.Groups.FirstOrDefaultAsync(g => g.GroupName == groupName);
 
         public IQueryable<Group> SelectAllGroup() =>
             this.Groups.AsQueryable();
