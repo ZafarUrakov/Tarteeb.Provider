@@ -16,14 +16,11 @@ namespace Tarteeb.Provider.Services.Orchestrations
         GroupProcessingService groupProcessingService = new GroupProcessingService();
         ApplicantProcessningService applicantProcessningService = new ApplicantProcessningService();
 
-
         List<Applicant> readyApplicants = new List<Applicant>();
         List<Applicant> fullAplicants = new List<Applicant>();
 
-
         public async void ProcessImport(string filePath)
         {
-
             List<Applicant> validApplicants = importerProcessingService.ValidateInvalidApplicants(filePath);
 
             readyApplicants.AddRange(validApplicants);
