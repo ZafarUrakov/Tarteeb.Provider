@@ -4,9 +4,12 @@
 //===============================
 
 using System.Collections.Generic;
+using Bytescout.Spreadsheet;
+using System.Reflection.Metadata;
 using Tarteeb.Provider.Brokers.Exceptions;
 using Tarteeb.Provider.Brokers.Spreadsheets;
 using Tarteeb.Provider.Models.Applicant;
+using System;
 
 namespace Tarteeb.Provider.Services.Foundatons.ImporterService
 {
@@ -14,24 +17,46 @@ namespace Tarteeb.Provider.Services.Foundatons.ImporterService
     {
         SpreadsheetBroker spreadsheetBroker = new SpreadsheetBroker();
 
-        internal List<Applicant> ValidateApplicantNotNull(string filePath)
+        internal List<Applicant> ValidateApplicantsAndFilter(string filePath)
         {
-            var applicants = spreadsheetBroker.ImportApplicantToList(filePath);
             List<Applicant> filteredApplicants = new List<Applicant>();
 
-            foreach (var applicant in applicants)
+            Spreadsheet document = new Spreadsheet();
+
+            document.LoadFromFile(filePath);
+
+            Worksheet worksheet = document.Workbook.Worksheets[0];
+
+            for (int row = 1; row <= worksheet.UsedRangeRowMax; row++)
             {
-                if (applicant != null)
+                var applicant = spreadsheetBroker.ImportApplicantToList(filePath, row);
+
+                try
                 {
-                    filteredApplicants.Add(applicant);
+                    var notNullApplicant = ValidateAndThrowIfNull(applicant);
+                    filteredApplicants.Add(notNullApplicant);
                 }
-                else
+                catch (NullApplicantException exeption)
                 {
-                    throw new NullApplicantException();
+                    Console.WriteLine($"Null Applicant Exception: {exeption.Message}");
+
+                    continue;
                 }
             }
-
             return filteredApplicants;
         }
+
+        private Applicant ValidateAndThrowIfNull(Applicant applicant)
+        {
+            if (applicant != null)
+            {
+                return applicant;
+            }
+            else
+            {
+                throw new NullApplicantException();
+            }
+        }
+
     }
 }

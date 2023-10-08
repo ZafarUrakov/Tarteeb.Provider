@@ -12,9 +12,7 @@ namespace Tarteeb.Provider.Brokers.Spreadsheets
 {
     public class SpreadsheetBroker
     {
-        public List<Applicant> applicants = new List<Applicant>();
-
-        public List<Applicant> ImportApplicantToList(string filePath)
+        public Applicant ImportApplicantToList(string filePath, int row)
         {
             Spreadsheet document = new Spreadsheet();
 
@@ -22,8 +20,6 @@ namespace Tarteeb.Provider.Brokers.Spreadsheets
 
             Worksheet worksheet = document.Workbook.Worksheets[0];
 
-            for (int row = 1; row <= worksheet.UsedRangeRowMax; row++)
-            {
                 Applicant applicant = new Applicant();
 
                 applicant.ApplicantId = Guid.NewGuid();
@@ -40,12 +36,10 @@ namespace Tarteeb.Provider.Brokers.Spreadsheets
 
                 applicant.Groupname = worksheet.Cell(row, 6).ToString();
                 applicant.GroupId = Guid.NewGuid();
-                applicants.Add(applicant);
-            }
 
             document.Close();
 
-            return applicants;
+            return applicant;
         }
     }
 }
