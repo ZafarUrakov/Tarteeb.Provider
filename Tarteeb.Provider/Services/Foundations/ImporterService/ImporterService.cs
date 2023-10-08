@@ -31,32 +31,10 @@ namespace Tarteeb.Provider.Services.Foundatons.ImporterService
             {
                 var applicant = spreadsheetBroker.ImportApplicantToList(filePath, row);
 
-                try
-                {
-                    var notNullApplicant = ValidateAndThrowIfNull(applicant);
-                    filteredApplicants.Add(notNullApplicant);
-                }
-                catch (NullApplicantException exeption)
-                {
-                    Console.WriteLine($"Null Applicant Exception: {exeption.Message}");
-
-                    continue;
-                }
+                filteredApplicants.Add(applicant);
             }
+
             return filteredApplicants;
         }
-
-        private Applicant ValidateAndThrowIfNull(Applicant applicant)
-        {
-            if (applicant != null)
-            {
-                return applicant;
-            }
-            else
-            {
-                throw new NullApplicantException();
-            }
-        }
-
     }
 }
