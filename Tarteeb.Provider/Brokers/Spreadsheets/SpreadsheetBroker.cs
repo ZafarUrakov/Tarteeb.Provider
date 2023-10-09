@@ -5,7 +5,6 @@
 
 using Bytescout.Spreadsheet;
 using System;
-using System.Collections.Generic;
 using Tarteeb.Provider.Models.Applicant;
 
 namespace Tarteeb.Provider.Brokers.Spreadsheets
@@ -20,22 +19,22 @@ namespace Tarteeb.Provider.Brokers.Spreadsheets
 
             Worksheet worksheet = document.Workbook.Worksheets[0];
 
-                Applicant applicant = new Applicant();
+            Applicant applicant = new Applicant();
 
-                applicant.ApplicantId = Guid.NewGuid();
-                applicant.Firstname = worksheet.Cell(row, 1).ToString();
-                applicant.Lastname = worksheet.Cell(row, 2).ToString();
-                applicant.PhoneNumber = worksheet.Cell(row, 3).ToString();
-                applicant.Email = worksheet.Cell(row, 4).ToString();
+            applicant.ApplicantId = Guid.NewGuid();
+            applicant.Firstname = worksheet.Cell(row, 1).ToString();
+            applicant.Lastname = worksheet.Cell(row, 2).ToString();
+            applicant.PhoneNumber = worksheet.Cell(row, 3).ToString();
+            applicant.Email = worksheet.Cell(row, 4).ToString();
 
-                string dateString = worksheet.Cell(row, 5).ToString();
-                if (DateTimeOffset.TryParse(dateString, out DateTimeOffset date))
-                {
-                    applicant.BirthDate = date;
-                }
+            string dateString = worksheet.Cell(row, 5).ToString();
+            if (DateTimeOffset.TryParse(dateString, out DateTimeOffset date))
+            {
+                applicant.BirthDate = date;
+            }
 
-                applicant.Groupname = worksheet.Cell(row, 6).ToString();
-                applicant.GroupId = Guid.NewGuid();
+            applicant.Groupname = worksheet.Cell(row, 6).ToString();
+            applicant.GroupId = Guid.NewGuid();
 
             document.Close();
 

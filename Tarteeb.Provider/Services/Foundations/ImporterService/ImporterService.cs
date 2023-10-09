@@ -3,13 +3,12 @@
 // Powering True Leadership
 //===============================
 
-using System.Collections.Generic;
 using Bytescout.Spreadsheet;
-using System.Reflection.Metadata;
+using System;
+using System.Collections.Generic;
 using Tarteeb.Provider.Brokers.Exceptions;
 using Tarteeb.Provider.Brokers.Spreadsheets;
 using Tarteeb.Provider.Models.Applicant;
-using System;
 
 namespace Tarteeb.Provider.Services.Foundatons.ImporterService
 {
@@ -31,10 +30,32 @@ namespace Tarteeb.Provider.Services.Foundatons.ImporterService
             {
                 var applicant = spreadsheetBroker.ImportApplicantToList(filePath, row);
 
-                filteredApplicants.Add(applicant);
-            }
+                try
+                {
+                    var notNullApplicant = ValidateAndThrowIfNull(applicant);
+                    filteredApplicants.Add(notNullApplicant);
+                }
+                catch (NullApplicantException exeption)
+                {
+                    Console.WriteLine($"Null Applicant Exception: {exeption.Message}");
 
+                    continue;
+                }
+            }
             return filteredApplicants;
         }
+
+        private Applicant ValidateAndThrowIfNull(Applicant applicant)
+        {
+            if (applicant != null)
+            {
+                return applicant;
+            }
+            else
+            {
+                throw new NullApplicantException();
+            }
+        }
+
     }
 }
